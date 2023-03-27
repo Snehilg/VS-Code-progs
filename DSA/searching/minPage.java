@@ -14,8 +14,47 @@ class minPage{
         for(int i=0;i<n;i++)
             arr[i]=Integer.parseInt(s[i]);
 
-        System.out.println(mPages(arr,n,k));
+        //System.out.println(mPages(arr,n,k));  //recursive
 
+        //iterative solution
+
+        int l=0,h=0;    // l is max & h is sum 
+
+        for(int i:arr){
+            if(l<i) l=i;
+            h+=i;
+        }
+
+        int res=0;
+
+        while(l<=h){
+            int m=(l+h)/2;
+            if(feasible(arr,n,m,k)){
+                res=m;
+                h=m-1;
+            }
+            else
+                l=m+1;
+        }
+
+        System.out.println(res);
+
+    }
+
+    static boolean feasible(int arr[],int n,int m,int k){
+
+        int count=1,sum=0;
+
+        for(int i=0;i<n;i++){
+            if(sum+arr[i]>m){
+                count++;
+                sum=arr[i];
+            }
+            else
+                sum+=arr[i];
+        }
+        
+        return (count<=k);
     }
 
 
