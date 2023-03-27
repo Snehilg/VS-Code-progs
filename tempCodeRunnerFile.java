@@ -1,0 +1,1 @@
+(max>max1?(max>max2?max:max):(max1>max2?max1:max2))
