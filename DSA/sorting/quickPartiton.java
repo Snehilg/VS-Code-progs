@@ -58,7 +58,8 @@ class quickPartiton{
         }
 
         swap(arr,i+1,h);
-        
+        //will be used in quicksort
+        //return (i+1);     //returning pivot pos
     }
     
     static void hoare(int arr[],int l,int h){
@@ -94,11 +95,15 @@ class quickPartiton{
                 j--;
             }while(arr[j]>pivot);
 
-            if(i>=j)    break;
-
+            if(i>=j){    
+                break;
+                //will be used in quicksort
+                return j;
+            }
             swap(arr,i,j);
 
         }
+       
 
     }
 
