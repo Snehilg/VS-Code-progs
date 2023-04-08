@@ -14,14 +14,14 @@ class kthsmallest{
 
         System.out.println(Arrays.toString(arr));
 
-         System.out.println(smallest(arr,0,n-1,k));
+        System.out.println(smallest(arr,0,n-1,k));
         System.out.println(Arrays.toString(arr));
 
     }
 
     static int smallest(int arr[],int l,int r,int k){
-        if(l<r){
-            int p=lomuto(arr,l,r,k);
+       while(l<=r){     //we are using loop coz we reapeatedly have to call lomuto around a pivot
+            int p=lomuto(arr,l,r);
             //if p is k-1, we got the result
             //else we will try to reduce our search positon based on p & k
 
@@ -29,12 +29,11 @@ class kthsmallest{
             else if(p>k-1)  r=p-1;      //if the pivot is ahead of k, sort array l->p-1, kyuki isme k-1 hoga
             else l=p+1;
 
-            smallest(arr,l,r,k);
         }
-        return arr[k-1];
+        return -1;
     }
 
-    static int lomuto(int arr[],int l,int r,int k){
+    static int lomuto(int arr[],int l,int r){
         int pivot=arr[r];
         int i=l-1;
 
