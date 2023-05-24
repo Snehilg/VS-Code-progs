@@ -4,41 +4,63 @@ import java.util.*;
 class Test{
     public static void main(String [] args)throws IOException,NumberFormatException{
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        
         String s[]=br.readLine().split(" ");
+
         int n=s.length;
         int arr[]=new int[n];
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++)
             arr[i]=Integer.parseInt(s[i]);
+        
+        System.out.println(kadane(arr,n));
+       
+    }//main
+    
+    static int kadane(int arr[],int n){
+        int curr=arr[0];
+        int max=arr[0];
+
+        for(int i=1;i<n;i++){
+            if(curr<0)  curr=0;
+            curr+=arr[i];
+            if(max<curr)    max=curr;
         }
 
-        int sum=Integer.parseInt(br.readLine());
+        return max;
+    }
 
-        boolean found=false;
-        int i=0,j=n-1,k=0;
+    static int subSum(int arr[],int rs,int i){
+        if(i==0){
+            System.out.println(rs);
+            if(rs==0)  return 1;
+            else return 0;
+        }
+        int temp=rs-arr[i-1];
+        i--;
+        return (subSum(arr,rs,i)+subSum(arr,temp,i));
+    }
 
-        while(!found){
-            if(arr[i]+arr[j]<sum){
-                int f=sum-(arr[i]+arr[j]);
+    static void toi(int n,String A,String B,String C){
+        if(n==1){
+            System.out.println("move disk 1 from "+A+" to "+C);
+            return; 
+        }
+        toi(n-1,A,C,B);
+        System.out.println("move disk "+n+" from "+A+" to "+C);
+        toi(n-1,B,A,C);
+    }
 
-                for(k=0;k<n;k++){
-                    if(k==i || k==j)    continue;
-                    if(arr[k]==f)   found=true;
-                }
+    static boolean isPrime(int n){
+        if(n==2 || n==3)    return true;
 
-                if(!found){
-                i++;
-                }
-            }else if(arr[i]+arr[j]>sum){
-                j--;
+        if(n%2==0 || n%3==0)    return false;
+
+        for(int i=5;i<=Math.sqrt(n);i=i+6){ 
+            if(n%i==0 || n%(i+2)==0){
+                return false;
             }
-            
         }
 
-        if(found)
-            System.out.println(arr[i]+" "+arr[j]+" "+arr[k]);
-        else
-            System.out.println(-1);
+        return true;
     }
 
     static int sqrt(int n){
@@ -63,14 +85,13 @@ class Test{
         str[j]=temp;
     }
 
-    static int power(int n,int p){
-        
-        int max=1000000000+7;
+    static long power(int n,int p){
         if(p==0)    return 1;
-        int temp=power(n,p/2);
-        temp=(temp*temp);
+        if(p==1)     return n;
+        long temp=power(n,p/2);
+        temp=temp*temp;
         if(p%2==0)  return temp;
-        else        return (temp*n);
+        else    return temp*n;
     }
 
     static int fact(int n){
