@@ -1,1 +1,1 @@
-(max>max1?(max>max2?max:max):(max1>max2?max1:max2))
+1 8 6 5 3 7 4 9 2
